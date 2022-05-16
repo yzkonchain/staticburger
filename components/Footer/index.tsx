@@ -1,11 +1,16 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image'
 import i18next from 'i18next'
 import neoBurgerDark from '@/resources/images/neo-burger-dark.svg'
-import style from './Footer.module.css'
-
+import style_pc from './Footer.pc.module.css'
+import style_mobile from './Footer.mobile.module.css'
+import { isMobile } from 'react-device-detect'
 const Footer: FC = () => {
 	const { t } = i18next
+	const [style, setStyle]: any = useState({})
+	useEffect(() => {
+		setStyle(isMobile ? style_mobile : style_pc)
+	}, [])
 
 	return (
 		<footer className={style.footer}>

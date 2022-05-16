@@ -15,7 +15,9 @@ import getNetworkFee from '@/resources/utils/api/neonjs'
 import gasLogo from '@/resources/images/gas-logo.svg'
 import gasLogoMini from '@/resources/images/gas-logo-mini.svg'
 import learnMore from '@/resources/images/learn-more.svg'
-import style from './JazzUp.module.css'
+import style_pc from './JazzUp.pc.module.css'
+import style_mobile from './JazzUp.mobile.module.css'
+import { isMobile } from 'react-device-detect'
 
 interface Props {
 	className: string
@@ -43,6 +45,11 @@ const JazzUp: FC<Props> = ({ className: _className }) => {
 	const [modalInfo, setModalInfo] = useState<ModalInfo>({ status: 'hide', hint: '' }) // 弹窗信息
 	const [totalFee, setTotalFee] = useState('0') // 手续费
 	const [isClaiming, setIsClaiming] = useState(false) // 是否在等待claiming返回结果
+
+	const [style, setStyle]: any = useState({})
+	useEffect(() => {
+		setStyle(isMobile ? style_mobile : style_pc)
+	}, [])
 
 	useEffect(() => {
 		if (address) {

@@ -12,7 +12,9 @@ import burgerWhite from '@/resources/images/burger-white.svg'
 import rightArrow from '@/resources/images/right-arrow.svg'
 import menu from '@/resources/images/menu.svg'
 import menuDark from '@/resources/images/menu-dark.svg'
-import style from './Header.module.css'
+import style_pc from './Header.pc.module.css'
+import style_mobole from './Header.mobile.module.css'
+import { isMobile } from 'react-device-detect'
 
 interface Props {
 	setShowDrawer: (show: boolean) => void
@@ -23,10 +25,14 @@ const Header: FC<Props> = ({ setShowDrawer, language }) => {
 	const { t } = i18next
 	const router = useRouter()
 	const [color, setColor] = useState(router.pathname.includes('/home') ? 'white' : 'black')
-
+	const [style, setStyle]: any = useState({})
 	const changeLanguage = (locale: string) => {
 		router.replace(URLGen(router.asPath.split('/').slice(-2)[0], locale))
 	}
+
+	useEffect(() => {
+		setStyle(isMobile ? style_mobole : style_pc)
+	}, [])
 
 	useEffect(() => {
 		function changeColor() {

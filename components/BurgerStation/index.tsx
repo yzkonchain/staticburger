@@ -14,8 +14,10 @@ import bNeoLogo from '@/resources/images/bneo-logo.svg'
 import learnMore from '@/resources/images/learn-more.svg'
 import exchange from '@/resources/images/exchange.svg'
 import gasLogoMini from '@/resources/images/gas-logo-mini.svg'
-import style from './BurgerStation.module.css'
 import constants from '@/resources/constants'
+import style_pc from './BurgerStation.pc.module.css'
+import style_mobile from './BurgerStation.mobile.module.css'
+import { isMobile } from 'react-device-detect'
 
 interface Props {
 	className: string
@@ -44,6 +46,10 @@ const BurgerStation: FC<Props> = ({ className: _className }) => {
 	const [modalInfo, setModalInfo] = useState<ModalInfo>({ status: 'hide', hint: '' }) // 弹窗信息
 	const [isSwapping, setIsSwapping] = useState(false) // 是否在等待swap返回结果
 
+	const [style, setStyle]: any = useState({})
+	useEffect(() => {
+		setStyle(isMobile ? style_mobile : style_pc)
+	}, [])
 	useEffect(() => {
 		// 重置输入框内容
 		setAmount('')

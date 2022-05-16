@@ -20,14 +20,13 @@ import connection from '@/resources/images/connection.svg'
 import BurgerStation from '@/components/BurgerStation'
 import JazzUp from '@/components/JazzUp'
 import Alert from '@/components/Alert'
-import style from './Home.module.css'
-
+import style_pc from './Home.pc.module.css'
+import style_mobile from './Home.mobile.module.css'
+import { isMobile } from 'react-device-detect'
 const Home: NextPage = () => {
 	const { t } = i18next
 
 	const router = useRouter()
-	// console.log(router.pathname)
-
 	const dispatch = useAppDispatch()
 	const address = useAppSelector((state) => state.burger.address) // 钱包地址
 	const network = useAppSelector((state) => state.burger.network) // 当前网络
@@ -37,10 +36,11 @@ const Home: NextPage = () => {
 	const [totalSupply, setTotalSupply] = useState() // 所有人已转换的bNEO数量
 	const [operateType, setOperateType] = useState<'burgerStation' | 'jazzUp'>('burgerStation') // 操作界面切换
 	const [apr, setApr] = useState('-%') // 收益年度百分比
-
+	const [style, setStyle]: any = useState({})
 	const operateRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
+		setStyle(isMobile ? style_mobile : style_pc)
 		// 获取所有人已转换的bNEO数量
 		getTotalSupply().then((res) => {
 			const totalSupply = res?.stack?.[0]?.value
