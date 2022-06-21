@@ -134,8 +134,12 @@ async function transfer(scriptHash: string, amount: string) {
 			],
 			[{ scopes: WitnessScope.CalledByEntry }]
 		)
-		.then((result) => {
-			return result.result
+		.then(({ result }) => {
+			if (result.error) {
+				convertWalletError(result.error)
+				return '-1'
+			}
+			return result
 		})
 		.catch((error: DapiError) => {
 			convertWalletError(error)
@@ -188,8 +192,12 @@ const claimNoBug = (scripthash: string, amount: string, nonce: string, proof: st
 			],
 			[{ scopes: WitnessScope.CalledByEntry }]
 		)
-		.then((result) => {
-			return result.result
+		.then(({ result }) => {
+			if (result.error) {
+				convertWalletError(result.error)
+				return '-1'
+			}
+			return result
 		})
 		.catch((error: DapiError) => {
 			convertWalletError(error)
@@ -353,8 +361,12 @@ const newProposal = (
 			],
 			[{ scopes: WitnessScope.CalledByEntry }]
 		)
-		.then((result) => {
-			return result.result
+		.then(({ result }) => {
+			if (result.error) {
+				convertWalletError(result.error)
+				return '-1'
+			}
+			return result
 		})
 		.catch((error: DapiError) => {
 			convertWalletError(error)
@@ -406,8 +418,12 @@ const vote = (address: string, id: string, forOrAgainst: boolean, unvote: boolea
 			],
 			[{ scopes: WitnessScope.CalledByEntry }]
 		)
-		.then((result) => {
-			return result.result
+		.then(({ result }) => {
+			if (result.error) {
+				convertWalletError(result.error)
+				return '-1'
+			}
+			return result
 		})
 		.catch((error: DapiError) => {
 			convertWalletError(error)

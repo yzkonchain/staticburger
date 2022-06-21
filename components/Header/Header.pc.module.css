@@ -98,3 +98,7 @@
 .menu {
 	display: none;
 }
+
+.languageSwitch {
+	white-space: nowrap;
+}
